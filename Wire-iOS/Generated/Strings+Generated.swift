@@ -57,6 +57,12 @@ internal enum L10n {
         internal static let title = L10n.tr("Localizable", "about.website.title")
       }
     }
+    internal enum AccountDeletedMissingPasscodeAlert {
+      /// In order to use Wire, please set a passcode in your device settings.
+      internal static let message = L10n.tr("Localizable", "account_deleted_missing_passcode_alert.message")
+      /// No device passcode
+      internal static let title = L10n.tr("Localizable", "account_deleted_missing_passcode_alert.title")
+    }
     internal enum AccountDeletedSessionExpiredAlert {
       /// The application did not communicate with the server for a long period of time, or your session has been remotely invalidated.
       internal static let message = L10n.tr("Localizable", "account_deleted_session_expired_alert.message")
@@ -271,6 +277,14 @@ internal enum L10n {
       internal enum Grid {
         /// No active video speakers...
         internal static let noActiveSpeakers = L10n.tr("Localizable", "call.grid.no_active_speakers")
+        internal enum Hints {
+          /// Double Tap on a tile for fullscreen
+          internal static let fullscreen = L10n.tr("Localizable", "call.grid.hints.fullscreen")
+          /// Double Tap to go back, pinch to zoom
+          internal static let goBackOrZoom = L10n.tr("Localizable", "call.grid.hints.go_back_or_zoom")
+          /// Pinch to zoom
+          internal static let zoom = L10n.tr("Localizable", "call.grid.hints.zoom")
+        }
       }
       internal enum Overlay {
         internal enum SwitchTo {
@@ -2626,6 +2640,12 @@ internal enum L10n {
         /// Create group
         internal static let createConversation = L10n.tr("Localizable", "peoplepicker.button.create_conversation")
       }
+      internal enum Federation {
+        /// The federated domain is currently not available. [Learn more](%@)
+        internal static func domainUnvailable(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "peoplepicker.federation.domain_unvailable", String(describing: p1))
+        }
+      }
       internal enum Group {
         /// Create
         internal static let create = L10n.tr("Localizable", "peoplepicker.group.create")
@@ -2651,6 +2671,8 @@ internal enum L10n {
         internal static let conversations = L10n.tr("Localizable", "peoplepicker.header.conversations")
         /// Connect
         internal static let directory = L10n.tr("Localizable", "peoplepicker.header.directory")
+        /// Connect with other domain
+        internal static let federation = L10n.tr("Localizable", "peoplepicker.header.federation")
         /// People
         internal static let people = L10n.tr("Localizable", "peoplepicker.header.people")
         /// Invite

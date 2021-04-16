@@ -361,17 +361,17 @@ extension AppRootRouter {
     }
 
     private func setupAnalyticsSharing() {
-        Analytics.shared.selfUser = SelfUser.current
-
         guard
             appStateCalculator.wasUnauthenticated,
-            Analytics.shared.selfUser?.isTeamMember ?? false
+            let selfUser = SelfUser.provider?.selfUser,
+            selfUser.isTeamMember
         else {
             return
         }
 
         TrackingManager.shared.disableCrashSharing = true
         TrackingManager.shared.disableAnalyticsSharing = false
+        Analytics.shared.provider?.selfUser = selfUser
     }
 
     private func buildAuthenticatedRouter(account: Account, isComingFromRegistration: Bool) -> AuthenticatedRouter? {
@@ -445,8 +445,14 @@ extension AppRootRouter {
 
         switch reason {
         case .sessionExpired:
-            rootViewController.presentAlertWithOKButton(title: "account_deleted_session_expired_alert.title".localized,
-                                                        message: "account_deleted_session_expired_alert.message".localized)
+            rootViewController.presentAlertWithOKButton(
+                title: L10n.Localizable.AccountDeletedSessionExpiredAlert.title,
+                message: L10n.Localizable.AccountDeletedSessionExpiredAlert.message)
+
+        case .biometricPasscodeNotAvailable:
+            rootViewController.presentAlertWithOKButton(
+                title: L10n.Localizable.AccountDeletedMissingPasscodeAlert.title,
+                message: L10n.Localizable.AccountDeletedMissingPasscodeAlert.message)
 
         case .databaseWiped:
             let wipeCompletionViewController = WipeCompletionViewController()
