@@ -56,7 +56,9 @@ extension Settings {
             "Crypto",
             "cryptobox",
             "backend-environment",
-            "Backup"
+            "Backup",
+            "Push channel",
+            "Push channel_low"
         ]
 
         if let savedTags = UserDefaults.shared().object(forKey: enabledLogsKey) as? [String] {
