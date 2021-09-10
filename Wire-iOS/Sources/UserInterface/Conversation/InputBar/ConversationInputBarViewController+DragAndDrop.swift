@@ -35,21 +35,21 @@ extension ConversationInputBarViewController: UIDropInteractionDelegate {
                 DispatchQueue.main.async {
                     let context = ConfirmAssetViewController.Context(asset: .image(mediaAsset: draggedImage),
                                                                      onConfirm: { [unowned self] _ in
-                                                                                    self.dismiss(animated: true) {
-                                                                                        if let draggedImageData = draggedImage.pngData() {
-                                                                                            self.sendController.sendMessage(withImageData: draggedImageData)
-                                                                                        }
-                                                                                    }
-                                                                                },
+                                                                        self.dismiss(animated: true) {
+                                                                            if let draggedImageData = draggedImage.pngData() {
+                                                                                self.sendController.sendMessage(withImageData: draggedImageData)
+                                                                            }
+                                                                        }
+                                                                     },
                                                                      onCancel: { [unowned self] in
-                                                                                    self.dismiss(animated: true)
-                                                                                }
+                                                                        self.dismiss(animated: true)
+                                                                     }
                     )
 
                     let confirmImageViewController = ConfirmAssetViewController(context: context)
                     confirmImageViewController.previewTitle = self.conversation.displayName.localizedUppercase
                     self.present(confirmImageViewController, animated: true) {
-                            }
+                    }
                 }
             })
 
@@ -63,7 +63,19 @@ extension ConversationInputBarViewController: UIDropInteractionDelegate {
     }
 
     func dropInteraction(_ interaction: UIDropInteraction, canHandle session: UIDropSession) -> Bool {
-        return session.canLoadObjects(ofClass: UIImage.self)
+        return SecurityFlags.clipboard.isEnabled ? session.canLoadObjects(ofClass: UIImage.self) : false
+    }
+
+}
+
+extension ConversationInputBarViewController: UIDragInteractionDelegate {
+
+    func dragInteraction(_ interaction: UIDragInteraction, itemsForBeginning session: UIDragSession) -> [UIDragItem] {
+        return []
+    }
+
+    func dragInteraction(_ interaction: UIDragInteraction, sessionIsRestrictedToDraggingApplication session: UIDragSession) -> Bool {
+        return false
     }
 
 }
