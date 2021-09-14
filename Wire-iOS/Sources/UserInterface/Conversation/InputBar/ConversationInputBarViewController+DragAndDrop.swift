@@ -68,20 +68,3 @@ extension ConversationInputBarViewController: UIDropInteractionDelegate {
     }
 
 }
-
-extension ConversationInputBarViewController: UIDragInteractionDelegate {
-
-    func dragInteraction(_ interaction: UIDragInteraction, itemsForBeginning session: UIDragSession) -> [UIDragItem] {
-//        // Cast to NSString is required for NSItemProviderWriting support.
-//        let stringItemProvider = NSItemProvider(object: "Hello World" as NSString)
-//        return [
-//            UIDragItem(itemProvider: stringItemProvider)
-//        ]
-        return []
-    }
-
-    func dragInteraction(_ interaction: UIDragInteraction, sessionIsRestrictedToDraggingApplication session: UIDragSession) -> Bool {
-        return true
-    }
-
-}
