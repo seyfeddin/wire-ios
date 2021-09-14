@@ -59,11 +59,12 @@ extension ConversationInputBarViewController: UIDropInteractionDelegate {
     }
 
     func dropInteraction(_ interaction: UIDropInteraction, sessionDidUpdate session: UIDropSession) -> UIDropProposal {
-        return UIDropProposal(operation: .copy)
+        return UIDropProposal(operation: .forbidden)
+//        return SecurityFlags.clipboard.isEnabled ? UIDropProposal(operation: .copy) : UIDropProposal(operation: .forbidden)
     }
 
     func dropInteraction(_ interaction: UIDropInteraction, canHandle session: UIDropSession) -> Bool {
-        return SecurityFlags.clipboard.isEnabled ? session.canLoadObjects(ofClass: UIImage.self) : false
+        return true
     }
 
 }
@@ -71,11 +72,16 @@ extension ConversationInputBarViewController: UIDropInteractionDelegate {
 extension ConversationInputBarViewController: UIDragInteractionDelegate {
 
     func dragInteraction(_ interaction: UIDragInteraction, itemsForBeginning session: UIDragSession) -> [UIDragItem] {
+//        // Cast to NSString is required for NSItemProviderWriting support.
+//        let stringItemProvider = NSItemProvider(object: "Hello World" as NSString)
+//        return [
+//            UIDragItem(itemProvider: stringItemProvider)
+//        ]
         return []
     }
 
     func dragInteraction(_ interaction: UIDragInteraction, sessionIsRestrictedToDraggingApplication session: UIDragSession) -> Bool {
-        return false
+        return true
     }
 
 }

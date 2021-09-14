@@ -323,6 +323,10 @@ final class ConversationInputBarViewController: UIViewController,
         let interaction = UIDropInteraction(delegate: self)
         inputBar.textView.addInteraction(interaction)
 
+        let interaction1 = UIDragInteraction(delegate: self)
+//        interaction1.isEnabled = false
+        inputBar.textView.addInteraction(interaction1)
+
         setupObservers()
     }
 
