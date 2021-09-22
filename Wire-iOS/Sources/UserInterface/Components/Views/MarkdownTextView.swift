@@ -63,9 +63,12 @@ final class MarkdownTextView: NextResponderTextView {
                                    withSender sender: Any?) -> Bool {
         switch action {
         case #selector(UIResponderStandardEditActions.paste(_:)),
-             #selector(UIResponderStandardEditActions.cut(_:)),
-             #selector(UIResponderStandardEditActions.copy(_:)):
-            guard SecurityFlags.clipboard.isEnabled else { return false }
+            #selector(UIResponderStandardEditActions.cut(_:)),
+            #selector(UIResponderStandardEditActions.copy(_:)):
+            let pasteboard = UIPasteboard.general
+            guard shouldAllowPerformAction(isText: pasteboard.hasStrings,
+                                           isClipboardEnabled: SecurityFlags.clipboard.isEnabled,
+                                           canFilesBeShared: canFilesBeShared) else { return false }
             fallthrough
         default:
             return super.canPerformAction(action, withSender: sender)
